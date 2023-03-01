@@ -1,30 +1,66 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="container-fluid">
+    <header class="header">
+      <div class="container">
+        <button class="city-btn" @click="openModalCity">
+          <img src="@/assets/img/marker-city.svg" alt="">
+          {{ checkStartCityName }}
+        </button>
+      </div>
+    </header>
+
+    <TopBlock/>
+    
+    <router-view/>
+    <ModalCity v-show="modalCity"/>
+    <div v-show="preloaderStatus" class="loader-box">
+      <div class="loader">loading</div>
+    </div>
   </div>
-  <router-view/>
 </template>
 
+
+<script>
+import {mapMutations, mapGetters} from 'vuex';
+import ModalCity from './components/ModalCity.vue';
+import TopBlock from './components/TopBlock.vue';
+
+export default {
+  components:{
+    ModalCity,
+    TopBlock
+  },
+  methods:{
+    ...mapMutations(["openModalCity", "renameBigTitlePage"])
+  },
+  computed:{
+    ...mapGetters(["modalCity", "nameCity","preloaderStatus","mainTitlePage", "cityIdState"]),
+
+    checkStartCityName(){
+      if (!this.nameCity) {
+        return 'Новосибирск'
+      }else{
+        return this.nameCity
+      }
+    }
+  },
+
+  updated() {
+    console.log(`https://nlstar.com/ru/api/catalog3/v1/menutags/${this.$route.params.slug}/?city_id=${this.cityIdState}`)
+    if (!this.$route.params.slug) {
+      this.renameBigTitlePage('')
+    }else{
+      fetch(`https://nlstar.com/ru/api/catalog3/v1/menutags/${this.$route.params.slug}/?city_id=${this.cityIdState}`)
+        .then(response => response.json())
+        .then(data => {
+            this.renameBigTitlePage(data.tags[0].name)
+        })
+    }
+  },
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+@import "./assets/css/style.css";
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
