@@ -17,6 +17,8 @@
     <li>Vue router</li>
 </ul>
 
+<p>P.S. К сожелению не смог сделать GitHub Pages из за тогго что CORS сервера API блокирует запросы</p>
+
 # vue3-catalog
 
 ## Project setup
