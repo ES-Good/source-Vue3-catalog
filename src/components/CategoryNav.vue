@@ -31,32 +31,7 @@ export default {
         mobileWindow(){
             return window.innerWidth <= 576
         }
-    },
-
-    watch:{
-        mobileCategory(){
-            if (this.mobileWindow) {
-
-                // this.filterBtns.forEach(element => {
-                //     element.click = false
-                // });
-                
-                // if (this.mobileCategory != 'AllCategories') {
-                //     let newArrCategory = this.allDetalCategory.filter(item => {
-                //         return item.tags.some(i => i.id == this.mobileCategory)
-                //     })
-
-                //     this.detalCategory = newArrCategory
-                    
-                //     newArrCategory = []
-
-                // }else{
-                //     this.detalCategory = this.allDetalCategory
-                // }
-
-            }
-        }
-    },
+    }
 }
 </script>
 
