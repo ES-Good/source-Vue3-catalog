@@ -26,12 +26,11 @@
                         <p v-if="card.present_name != card.comment_name" 
                         class="card-product__text card-product__text_description">{{ card.comment_name }}</p> 
                         <p class="card-product__text card-product__text_price card-product__text_price-ru">{{ card.price }}</p>
-                        <button v-if="card.allowed || card.available" class="card-product__btn">
-                            В корзину
-                        </button>
-                        <button v-else class="card-product__btn" disabled>
-                            Нет в наличии
-                        </button>
+
+                        <CardFooter  
+                        :allowed="card.allowed" 
+                        :available="card.available"/>
+
                     </div>
                 </div>
             </div>
@@ -40,11 +39,14 @@
 </template>
 
 <script>
+
 import {mapMutations, mapGetters} from 'vuex';
+import CardFooter from '../components/CardFooter.vue';
 import CategoryNav from '../components/CategoryNav.vue';
 export default {
     components: { 
-        CategoryNav 
+        CategoryNav,
+        CardFooter 
     },
     data(){
         return{
