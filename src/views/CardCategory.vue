@@ -43,6 +43,7 @@
 import {mapMutations, mapGetters} from 'vuex';
 import CardFooter from '../components/CardFooter.vue';
 import CategoryNav from '../components/CategoryNav.vue';
+import { fetchAllCategoryProduct } from "../fetchCategory.js";
 export default {
     components: { 
         CategoryNav,
@@ -115,44 +116,34 @@ export default {
             }
         }
     },
-    watch:{
-        allCategories(){
-           fetch(`https://nlstar.com/ru/api/catalog3/v1/menutags/${this.$route.params.slug}/?city_id=${this.cityIdState}`)
-            .then(response => response.json())
-            .then(data => {
-                this.detalCategory = data
-                this.closePreloader()
-            }) 
-        }
-    },
 
-    mounted(){
+    async mounted(){
         this.showPreloader()
-        fetch(`https://nlstar.com/ru/api/catalog3/v1/menutags/${this.$route.params.slug}/?city_id=${this.cityIdState}`)
-            .then(response => response.json())
-            .then(data => {
+        let allProductData = await fetchAllCategoryProduct(this.$route.params.slug ,this.cityIdState)
 
-                this.allDetalCategory = data.products
+        this.allDetalCategory = allProductData.products
 
-                this.allDetalCategory.forEach(element => {
-                    element.loadImg = false
-                });
+        this.allDetalCategory.forEach(element => {
+            element.loadImg = false
+        });
 
-                this.detalCategory = this.allDetalCategory
-                this.filterBtn = data.tags
-                this.filterBtn.forEach(element => {
-                    element.click = false
-                });
-                let item = {
-                        name: 'Все продукты',
-                        slug: 'AllCategories',
-                        click: true,
-                        id: 'AllCategories',
-                    };
+        this.detalCategory = this.allDetalCategory
+        this.filterBtn = allProductData.tags
+        this.filterBtn.forEach(element => {
+            element.click = false
+        });
+        let item = {
+                name: 'Все продукты',
+                slug: 'AllCategories',
+                click: true,
+                id: 'AllCategories',
+            };
 
-                this.filterBtn.unshift(item)
-                this.closePreloader()
-            })
+        this.filterBtn.unshift(item)
+        
+        if (allProductData) {
+            this.closePreloader()
+        }
     }
 
 }
