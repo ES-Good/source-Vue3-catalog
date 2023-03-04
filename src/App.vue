@@ -46,7 +46,6 @@ export default {
   },
 
   updated() {
-    console.log(`https://nlstar.com/ru/api/catalog3/v1/menutags/${this.$route.params.slug}/?city_id=${this.cityIdState}`)
     if (!this.$route.params.slug) {
       this.renameBigTitlePage('')
     }else{

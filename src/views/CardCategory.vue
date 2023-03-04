@@ -70,7 +70,6 @@ export default {
             });
 
             tag.click = true
-
             
             if (tag.id != 'AllCategories') {
 
@@ -84,8 +83,8 @@ export default {
 
             }else{
                 this.detalCategory = this.allDetalCategory
-                console.log(!!this.detalCategory.length)
             }
+
         },
 
         showProductMobile(id){
@@ -102,6 +101,7 @@ export default {
                 }else{
                     this.detalCategory = this.allDetalCategory
                 }
+                
         }
 
     },
@@ -123,23 +123,9 @@ export default {
 
         this.allDetalCategory = allProductData.products
 
-        this.allDetalCategory.forEach(element => {
-            element.loadImg = false
-        });
-
         this.detalCategory = this.allDetalCategory
-        this.filterBtn = allProductData.tags
-        this.filterBtn.forEach(element => {
-            element.click = false
-        });
-        let item = {
-                name: 'Все продукты',
-                slug: 'AllCategories',
-                click: true,
-                id: 'AllCategories',
-            };
 
-        this.filterBtn.unshift(item)
+        this.filterBtn = allProductData.tags
         
         if (allProductData) {
             this.closePreloader()

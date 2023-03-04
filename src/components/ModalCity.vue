@@ -61,12 +61,10 @@ export default {
           fetch(`https://nlstar.com/api/catalog3/v1/city/?term=${this.termUser}&country=ru`)
             .then(data => data.json())
             .then(citys => {
-              console.log(citys)
               this.arrCity = citys.data.slice()
             })
         }else{
-          this.arrCity = []
-          this.idCity = ''
+          this.clearModal()
         }
       }
     },
@@ -85,14 +83,26 @@ export default {
         this.updateCityId(id)
       },
 
-      confirmationInputCity(){
+      addLocalStorage(){
         localStorage.setItem('cityId', this.idCity );
         localStorage.setItem('cityName', this.nameCityModal );
-        this.fetchCategories()
-        this.closeModalCity()
-        this.termUser = ''
+      },
+
+      clearModal(){
         this.arrCity = []
         this.idCity = ''
+      },
+
+      confirmationInputCity(){
+        this.addLocalStorage()
+
+        this.fetchCategories()
+
+        this.closeModalCity()
+
+        this.clearModal()
+        this.termUser = ''
+
         this.renameCityBtn(this.nameCityModal)
       }
     },
