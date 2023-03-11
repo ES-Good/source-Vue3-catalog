@@ -13,26 +13,9 @@
                         Нет товара &#9785;
                     </p>
                 </div>
-                <div class="card-product" v-for="card in detalCategory" :key="card.id" >
-
-                    <div class="card-product__img-box">
-                        <img v-show="card.loadImg" :src="card.image" class="card-product__img"  :alt="card.full_name" @load="dowlandImg(card)">
-                        <div v-show="!card.loadImg" class="loader-card">loading</div>
-                    </div>
-                    
-                    <div class="card-product__content">
-                       <p class="card-product__text card-product__text_pale">{{ card.category.name }}</p>
-                        <p class="card-product__text card-product__text_name">{{ card.present_name }}</p>
-                        <p v-if="card.present_name != card.comment_name" 
-                        class="card-product__text card-product__text_description">{{ card.comment_name }}</p> 
-                        <p class="card-product__text card-product__text_price card-product__text_price-ru">{{ card.price }}</p>
-
-                        <CardFooter  
-                        :allowed="card.allowed" 
-                        :available="card.available"/>
-
-                    </div>
-                </div>
+                <keep-alive>
+                    <CardProduct :cardsProduct="detalCategory" />
+                </keep-alive>
             </div>
         </div>
     </div>
@@ -41,13 +24,14 @@
 <script>
 
 import {mapMutations, mapGetters} from 'vuex';
-import CardFooter from '../components/CardFooter.vue';
+import CardProduct from '../components/CardProduct.vue';
 import CategoryNav from '../components/CategoryNav.vue';
 import { fetchAllCategoryProduct } from "../fetchCategory.js";
+
 export default {
     components: { 
         CategoryNav,
-        CardFooter 
+        CardProduct 
     },
     data(){
         return{
@@ -58,10 +42,6 @@ export default {
     },
     methods:{
         ...mapMutations(["showPreloader", "closePreloader"]),
-
-        dowlandImg(card){
-            card.loadImg = true
-        },
 
         choiceCategory(tag){
            
