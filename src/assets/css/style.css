@@ -35,6 +35,11 @@ body{
   color: #42b983;
 }
 
+.symbol-rub::after{
+  content: '\20BD';
+  margin-left: 6px;
+}
+
 .container{
   max-width: 1150px;
   width: 100%;
@@ -90,6 +95,20 @@ body{
   transform: translateY(-50%) rotate(-45deg);
 }
 
+.btn-close_item-product{
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #000;
+  border-radius: 50%;
+}
+
+.btn-close:after,
+.btn-close:before{
+  width: 60%;
+  background-color: #fff;
+  left: 3px;
+}
 
 .text-common{
   font-size: 16px;

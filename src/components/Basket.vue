@@ -17,21 +17,28 @@
                         {{ item.short_name }}
                     </p>
                     <p class="basket-box__count-product"> {{ item.counter }} шт.</p>
+                    <button 
+                    @click="deleteProductBasket(item)" 
+                    class="btn-close btn-close_item-product">
+                    Close</button>
                 </li>
             </ul>
             <p v-show="basket.length == 0">Корзина пуста</p>
+            <p v-show="basket.length != 0" class="basket-box__sum">Сумма: <span class="symbol-rub">{{ formatSum }}</span>
+            </p>
              <router-link to="/" class="basket-box__link-basket">
                 Перейти в корзину
             </router-link>
             <button 
             @click="basketOpen = false" 
-            class="btn-close btn-close_basket">Close</button>
+            class="btn-close btn-close_basket">
+            Close</button>
         </div>
     </div>
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
     name: 'Basket',
@@ -43,12 +50,22 @@ export default {
     },
 
     computed:{
-        ...mapGetters(["basket","basketCount"])
+        ...mapGetters(["basket","basketCount", "sumAllProduct"]),
+
+        formatSum(){
+            let formNum = new Intl.NumberFormat('ru-RU').format(this.sumAllProduct)
+
+            return formNum
+        }
+    },
+
+    methods:{
+        ...mapMutations(["deleteProductBasket"])
     }
 }
 </script>
 
-<style>
+<style >
 
 .basket-box{
     position: relative;
@@ -65,7 +82,7 @@ export default {
 .basket-box__product-list{
     list-style: none;
     overflow-y: auto;
-    max-height: 300px;
+    max-height: 400px;
 }
 
 .basket-box__product-list::-webkit-scrollbar {
@@ -75,9 +92,11 @@ export default {
 .basket-box__item{
     display: flex;
     justify-content: space-between;
+    position: relative;
     margin: 10px 0;
     border-bottom: 1px solid #979797;
     padding: 10px 0;
+    padding-right: 16px;
 }
 
 .basket-box__item:last-child{
@@ -90,11 +109,13 @@ export default {
     bottom: 0;
     transform: translateY(100%);
     background-color: #fff;
-    border: 1px solid #000;
-    width: 375px;
+    border: 1px solid rgba(0, 0, 0, .5);
+    width: 400px;
     z-index: 99;
     padding: 10px;
-    padding-bottom: 60px;
+    padding-bottom: 46px;
+    padding-top: 36px;
+    overflow: hidden;
 }
 
 .basket-box__btn{
@@ -144,6 +165,21 @@ export default {
 .btn-close_basket{
     top: 10px;
     right: 10px;
+}
+
+.basket-box__sum{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 0;
+    padding-left: 10px;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .5);
+}
+
+.basket-box__sum span{
+    font-weight: 900;
 }
 
 </style>

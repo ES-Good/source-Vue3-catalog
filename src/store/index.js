@@ -94,6 +94,12 @@ export default createStore({
 
       console.log(state.basket)
 
+    },
+
+    deleteProductBasket(state, product){
+
+      state.basket = state.basket.filter(item => item.id != product.id)
+      
     }
   },
 
@@ -137,6 +143,16 @@ export default createStore({
 
     basketCount(state){
       return state.basket.length
+    },
+
+    sumAllProduct(state){
+      let sum = 0;
+
+      state.basket.forEach(element => {
+        sum += element.totalCost
+      });
+
+      return sum;
     }
   },
 
