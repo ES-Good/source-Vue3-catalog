@@ -5,7 +5,7 @@
           :class="{ 'active-popap': showPopup }">
       <button 
       @click="closeModalCity" 
-      class="btn-close-modal btn-close-modal_popup-city">Close</button>
+      class="btn-close btn-close_popup-city">Close</button>
 
       <p class="title-lvl-3 title-lvl-3_popup-city">
         Выбор населённого пункта: 
@@ -148,7 +148,7 @@ export default {
   font-size: 0;
 }
 
-.btn-close-modal_popup-city{
+.btn-close_popup-city{
   top: 18px;
   right: 18px;
 }

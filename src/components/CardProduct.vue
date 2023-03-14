@@ -14,6 +14,7 @@
             <p class="card-product__text card-product__text_price card-product__text_price-ru">{{ card.price }}</p>
 
             <CardFooter  
+            @clickBtn="clickCardBtn(card)"
             :allowed="card.allowed" 
             :available="card.available"/>
 
@@ -23,6 +24,8 @@
 
 <script>
 import CardFooter from '../components/CardFooter.vue';
+import {mapMutations} from 'vuex';
+
 export default {
     name: 'CardProduct',
     components:{
@@ -30,9 +33,13 @@ export default {
     },
 
     methods:{
+        ...mapMutations(["addToBasket"]),
         dowlandImg(card){
             card.loadImg = true
         },
+        clickCardBtn(price){
+            this.addToBasket(price)
+        }
     },
 
     props:{

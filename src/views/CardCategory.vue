@@ -13,9 +13,9 @@
                         Нет товара &#9785;
                     </p>
                 </div>
-                <keep-alive>
-                    <CardProduct :cardsProduct="detalCategory" />
-                </keep-alive>
+
+                <CardProduct :cardsProduct="detalCategory" />
+                
             </div>
         </div>
     </div>
@@ -347,6 +347,7 @@ export default {
         width: 40%;
         position: sticky;
         top: 10px;
+        z-index: 10;
     }
 
     .detal-card-wrapper__cards-conainer{

@@ -1,11 +1,13 @@
 <template>
   <div class="container-fluid">
     <header class="header">
-      <div class="container">
+      <div class="container container_header">
         <button class="city-btn" @click="openModalCity">
           <img src="@/assets/img/marker-city.svg" alt="">
           {{ checkStartCityName }}
         </button>
+        <Basket/>
+        {{basketCount}}
       </div>
     </header>
 
@@ -22,13 +24,15 @@
 
 <script>
 import {mapMutations, mapGetters} from 'vuex';
+import Basket from './components/Basket.vue';
 import ModalCity from './components/ModalCity.vue';
 import TopBlock from './components/TopBlock.vue';
 
 export default {
   components:{
     ModalCity,
-    TopBlock
+    TopBlock,
+    Basket
   },
   methods:{
     ...mapMutations(["openModalCity", "renameBigTitlePage"])

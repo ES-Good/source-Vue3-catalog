@@ -1,7 +1,7 @@
 <template>
     <div class="card-product__footer">
         
-        <button v-if="allowed || available" class="card-product__btn">
+        <button v-if="allowed || available" class="card-product__btn" @click="$emit('clickBtn')">
         В корзину
         </button>
 
@@ -17,7 +17,10 @@ export default {
     props: {
         allowed: Boolean,
         available: Boolean
-    }
+    },
+    emits:[
+        'clickBtn'
+    ]
 }
 </script>
 

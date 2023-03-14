@@ -8,7 +8,8 @@ export default createStore({
     nameCity: '',
     cityId: '',
     preloader: false,
-    mainTitlePage: ''
+    mainTitlePage: '',
+    basket:[]
   },
 
   mutations: {
@@ -60,8 +61,40 @@ export default createStore({
       }else{
         state.mainTitlePage = string
       }
+    },
+
+    addToBasket(state, product){
+
+      if ( state.basket.some(item => item.id == product.id) ) { 
+
+        chackExistingProduct(product)
+
+      }else{
+
+        newProduct(product)
+        
+      }
+
+      function chackExistingProduct(inputElement){
+
+        state.basket.forEach(element => {
+          if (element.id == inputElement.id) {
+            element.counter++
+            element.totalCost = inputElement.price * element.counter
+          }
+        });
+
+      }
+
+      function newProduct(newItem) {
+        newItem.counter = 1
+        newItem.totalCost = newItem.price
+        state.basket.push(newItem)
+      }
+
+      console.log(state.basket)
+
     }
-    
   },
 
   getters:{
@@ -96,6 +129,14 @@ export default createStore({
         state.nameCity = localStorage.getItem('cityName')
       }
       return state.cityId
+    },
+
+    basket(state){
+      return state.basket
+    },
+
+    basketCount(state){
+      return state.basket.length
     }
   },
 
