@@ -26,7 +26,7 @@
             <p v-show="basket.length == 0">Корзина пуста</p>
             <p v-show="basket.length != 0" class="basket-box__sum">Сумма: <span class="symbol-rub">{{ formatSum }}</span>
             </p>
-             <router-link to="/" class="basket-box__link-basket">
+             <router-link @click="basketOpen = false" to="/basket" class="basket-box__link-basket">
                 Перейти в корзину
             </router-link>
             <button 

@@ -52,12 +52,6 @@ export default {
   updated() {
     if (!this.$route.params.slug) {
       this.renameBigTitlePage('')
-    }else{
-      fetch(`https://nlstar.com/ru/api/catalog3/v1/menutags/${this.$route.params.slug}/?city_id=${this.cityIdState}`)
-        .then(response => response.json())
-        .then(data => {
-            this.renameBigTitlePage(data.tags[0].name)
-        })
     }
   },
 }

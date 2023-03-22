@@ -103,11 +103,21 @@ body{
   border-radius: 50%;
 }
 
-.btn-close:after,
-.btn-close:before{
+.btn-close_item-product.btn-close:after,
+.btn-close_item-product.btn-close:before{
   width: 60%;
   background-color: #fff;
   left: 3px;
+}
+
+.btn-close_basket{
+  border: 1px solid #000;
+  border-radius: 50%;
+}
+
+.btn-close_basket:after, 
+.btn-close_basket:before{
+    background-color: #000;
 }
 
 .text-common{

@@ -41,7 +41,7 @@ export default {
         }
     },
     methods:{
-        ...mapMutations(["showPreloader", "closePreloader"]),
+        ...mapMutations(["showPreloader", "closePreloader", "renameBigTitlePage"]),
 
         choiceCategory(tag){
            
@@ -110,7 +110,19 @@ export default {
         if (allProductData) {
             this.closePreloader()
         }
-    }
+    },
+
+    updated() {
+        if (!this.$route.params.slug) {
+        this.renameBigTitlePage('')
+        }else{
+        fetch(`https://nlstar.com/ru/api/catalog3/v1/menutags/${this.$route.params.slug}/?city_id=${this.cityIdState}`)
+            .then(response => response.json())
+            .then(data => {
+                this.renameBigTitlePage(data.tags[0].name)
+            })
+        }
+    },
 
 }
 </script>

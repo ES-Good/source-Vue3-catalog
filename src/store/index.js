@@ -56,6 +56,7 @@ export default createStore({
     },
 
     renameBigTitlePage(state, string){
+      console.log(string)
       if (string == '') {
         state.mainTitlePage = 'Все продукты'
       }else{
@@ -75,6 +76,8 @@ export default createStore({
         
       }
 
+      recordBasketLocal()
+
       function chackExistingProduct(inputElement){
 
         state.basket.forEach(element => {
@@ -92,14 +95,20 @@ export default createStore({
         state.basket.push(newItem)
       }
 
-      console.log(state.basket)
-
+      function recordBasketLocal() {
+        localStorage.setItem('basketLocal', JSON.stringify(state.basket));
+      }
     },
 
     deleteProductBasket(state, product){
 
+      function recordBasketLocal(basketArr) {
+        localStorage.setItem('basketLocal', JSON.stringify(basketArr));
+      }
+
       state.basket = state.basket.filter(item => item.id != product.id)
-      
+
+      recordBasketLocal(state.basket)
     }
   },
 
@@ -138,6 +147,10 @@ export default createStore({
     },
 
     basket(state){
+      if (JSON.parse(localStorage.getItem('basketLocal'))) {
+        state.basket = JSON.parse(localStorage.getItem('basketLocal'))
+      }
+
       return state.basket
     },
 
