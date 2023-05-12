@@ -1,10 +1,7 @@
 <template>
     <div class="card-product" v-for="card in cardsProduct" :key="card.id" >
 
-        <div class="card-product__img-box">
-            <img :src="card.image" loading="lazy" class="card-product__img"  :alt="card.full_name" @load="dowlandImg(card)">
-            <div v-show="!card.loadImg" class="loader-card">loading</div>
-        </div>
+        <CardHeader :srcImgProduct="card.image"/>
         
         <div class="card-product__content">
             <p class="card-product__text card-product__text_pale">{{ card.category.name }}</p>
@@ -24,12 +21,14 @@
 
 <script>
 import CardFooter from '../components/CardFooter.vue';
+import CardHeader from '../components/CardHeader.vue';
 import {mapMutations} from 'vuex';
 
 export default {
     name: 'CardProduct',
     components:{
-        CardFooter
+        CardFooter,
+        CardHeader
     },
 
     methods:{
